@@ -24,15 +24,20 @@ def verify():
 @app.route("/webhook", methods=["POST"])
 def webhook():
     data = request.get_json()
+    print("Received Data:"data)
     # when customer messages me
-    if "message" in data["entry"][0]["change"][0]["value"]:
+    if "message" in data["entry"][0]["changes"][0]["value"]:
         message = data["entry"][0]["changes"][0]["value"]["messages"][0]
         from_number = message["from"]
         msg_body = message["text"]["body"]
 
+        print(f"message from {from_number}:{msg_body}")
     # reply automatically
         reply = f"Hi! Thanks for messaging TuckBot🙏🏻\n You said:{msg_body}"
         send_whatsapp_message(from_number, reply)
+
+
+    return "ok",200
 
 
 def send_whatsapp_message(to, text):
