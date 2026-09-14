@@ -24,7 +24,7 @@ def verify():
 @app.route("/webhook", methods=["POST"])
 def webhook():
     data = request.get_json()
-    print("Received Data:"data)
+    print("Received Data:",data)
     # when customer messages me
     if "message" in data["entry"][0]["changes"][0]["value"]:
         message = data["entry"][0]["changes"][0]["value"]["messages"][0]
